@@ -11,11 +11,8 @@ architecture functional_behavior of press_duration is
 begin
     long_pause <= '1' when sh="00000000000" else '0';
     short_press <= not sh(0) and sh(1) and not sh(4);
-    long_press <= '1' when sh(5 downto 0)="111110" and sh(10)='0'
+    long_press <= '1' when sh(5 downto 0)="111110" and (not( sh(6) and sh(7) and sh(8) and sh(9) and sh(10)) = '1')
                   else '0';
-       -- besser: '1' when sh(5 downto 0)="111110" and
-       -- not( sh(6) and sh(7) and sh(8) and sh(9) and sh(10))
-       -- else '0';
         RESET_and_CLOCK_HANDLING: process (clock, resetpin)
         begin
             if resetpin='0' then sh <= (others=>'0');
@@ -24,3 +21,4 @@ begin
             end if;
         end process;
 end architecture functional_behavior;
+
