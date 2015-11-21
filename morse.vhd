@@ -67,8 +67,10 @@ begin
                     when "1111010101" => seg7 <="0001111"; -- 7
                     when "1111110101" => seg7 <="0000000"; -- 8
                     when "1111111101" => seg7 <="0000100"; -- 9
-                    when others => seg7 <= "0111111"; -- Fehlerausgabe "-"
-                end case; -- fehlt! token <= (others => 0); 
+                    -- when others => seg7 <= "1111110"; -- Fehlerausgabe "-"
+                    when others => null; -- Das alte Zeichen so lange auf der Anzeige lassen, bis das nächste Zeichen erkannt wird
+                end case; 
+                token <= (others => '0'); 
             end if;
         end if;
     end process;
